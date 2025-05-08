@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik } from 'formik';
 import { IoSearchOutline } from "react-icons/io5";
 import { getCityData, get5dayforcast } from '../store/slice/WeatherSlice';
 import { useDispatch } from 'react-redux';
 import { validate } from '../Validation';
+
 const Form = () => {
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getCityData({city:"lahore"}))
+    }, [dispatch])
+    
     return (
         <div>
             <div className='flex items-center justify-center pt-6'>
@@ -19,6 +24,7 @@ const Form = () => {
                                 lon: res.payload.coord.lon
                             }))
                         })
+                    
                     }}
                 >
                     {props => (
