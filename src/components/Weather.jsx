@@ -7,11 +7,9 @@ import { GoArrowUp } from "react-icons/go";
 import { GoArrowDown } from "react-icons/go";
 const Weather = () => {
 
-  const { citySearchData, citySearchError } = useSelector((state) => state.weather)
-console.log(citySearchData);
-
-  // if (citySearchError) return <div className="text-red-500">{citySearchError}</div>;
-
+  const { citySearchData,citySearchError} = useSelector((state) => state.weather)
+console.log(citySearchError, "erorrrrrrrrrrr");
+  
   return (
     <div>
       <div className='flex flex-col md:flex-row items-center text-white  p-4 justify-center md:gap-10 gap-4 w-full'>
