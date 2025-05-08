@@ -65,7 +65,7 @@ const Form = () => {
                                     disabled={isSubmitting}
                                 />
                                 {errors.city && (
-                                    <div className='text-white' id="feedback">
+                                    <div className='text-red-600' id="feedback">
                                         {errors.city}
                                     </div>
                                 )}
