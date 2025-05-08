@@ -6,10 +6,15 @@ import { MdOutlineAutoGraph } from "react-icons/md";
 import { GoArrowUp } from "react-icons/go";
 import { GoArrowDown } from "react-icons/go";
 const Weather = () => {
-  const { citySearchData } = useSelector((state) => state.weather)
+
+  const { citySearchData, citySearchError } = useSelector((state) => state.weather)
+console.log(citySearchData);
+
+  // if (citySearchError) return <div className="text-red-500">{citySearchError}</div>;
+
   return (
     <div>
-      <div className='flex flex-col md:flex-row items-center text-white md:p-10 p-4 justify-center md:gap-10 gap-4 w-full'>
+      <div className='flex flex-col md:flex-row items-center text-white  p-4 justify-center md:gap-10 gap-4 w-full'>
         <div className='md:w-1/2 w-full flex flex-col md:px-4 md:py-2  border-white'>
           <div className=''>
             <div className='md:text-4xl text-2xl font-semibold pt-4'>
@@ -34,7 +39,7 @@ const Weather = () => {
             <p className='flex items-center gap-3'><GoArrowUp /><span className='text-blue-200'>{Math.ceil(citySearchData?.main?.temp_max - 273.15)}&deg;</span></p>
             <div className='flex'>
               <p className='flex items-center gap-3'>
-                <GoArrowDown /> <span className='text-blue-200'>{Math.ceil(citySearchData?.main?.temp - 273.15)}&deg;</span>
+                <GoArrowDown /> <span className='text-blue-200'>{Math.ceil(citySearchData?.main?.temp_min - 273.15)}&deg;</span>
               </p>
             </div>
           </div>

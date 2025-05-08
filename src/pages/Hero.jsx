@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Weather from '../components/Weather'
 import { useSelector } from 'react-redux'
 import Loading from '../components/Loading'
-const Hero = () => {
-    const { citySearchLoading, citySearchData, citySearchError, forecastLoading, forecastData, forecastError } = useSelector((state) => state.weather)
-    const [loadings, setLoadings] = useState(true);
+import Forecast from '../components/Forecast'
 
-    const allLoadings = [citySearchLoading];
+const Hero = () => {
+
+    const { citySearchLoading, citySearchError, forecastLoading } = useSelector((state) => state.weather)
+    const [loadings, setLoadings] = useState(true);
+    const allLoadings = [citySearchLoading, forecastLoading];
     useEffect(() => {
         const isAnyChildLoading = allLoadings.some((state) => state);
         setLoadings(isAnyChildLoading);
@@ -17,11 +19,14 @@ const Hero = () => {
             <Loading />
         </div>
     } else {
-       if (citySearchError) {
-        return "eroor"
-       } else {
-        return <Weather/>
-       }
+        if (citySearchError) {
+            return "eroor"
+        } else {
+            return <>
+                <Weather />
+                <Forecast />
+            </>
+        }
     }
 
 

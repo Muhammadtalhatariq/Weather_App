@@ -15,12 +15,13 @@ export const getCityData = createAsyncThunk("city", async (obj) => {
 }
 )
 
-export const get5dayforcast = createAsyncThunk("5days", async (obj) => {
+export const get5dayforcast = createAsyncThunk("5days", async (obj, { rejectWithValue }) => {
     try {
         const response = await fetch(`${HOST_NAME}/data/2.5/forecast?lat=${obj.lat}&lon=${obj.lon}&appid=${API_ID}`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         const city = await response.json()
         return city;
     } catch (error) {
@@ -52,7 +53,7 @@ const weatherSlice = createSlice({
             .addCase(getCityData.rejected, (state, action) => {
                 state.citySearchLoading = false;
                 state.citySearchData = null;
-                state.citySearchError = action.payload;
+                state.citySearchError = action.payload || "farch data not found"
             })
             .addCase(get5dayforcast.pending, (state) => {
                 state.forecastLoading = true;

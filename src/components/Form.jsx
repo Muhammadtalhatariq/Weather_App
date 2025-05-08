@@ -7,10 +7,15 @@ import { validate } from '../Validation';
 
 const Form = () => {
     const dispatch = useDispatch()
+
     useEffect(() => {
-        dispatch(getCityData({city:"lahore"}))
+        dispatch(getCityData({ city: "lahore" }))
+        dispatch(get5dayforcast({
+            lat: 31.5497,
+            lon: 74.3436
+        }))
     }, [dispatch])
-    
+
     return (
         <div>
             <div className='flex items-center justify-center pt-6'>
@@ -24,7 +29,7 @@ const Form = () => {
                                 lon: res.payload.coord.lon
                             }))
                         })
-                    
+
                     }}
                 >
                     {props => (
@@ -36,12 +41,12 @@ const Form = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.name}
                                     name="city"
-                                    className='border border-white outline-none px-3 p-1 text-white bg-transparent md:w-96 w-80 rounded-2xl '
+                                    className='border border-white outline-none px-3 p-1 text-white bg-transparent md:w-96 w-[350px] rounded-2xl '
                                 />
                                 {props.errors.city && <div className='text-white' id="feedback">{props.errors.city}
                                 </div>
                                 }
-                                <button className='absolute right-4 top-2 hover:scale-125 duration-1000 text-white' type="submit"><IoSearchOutline /></button>
+                                <button className='absolute right-4 top-2 hover:scale-125 duration-1000 text-white cursor-pointer' type="submit"><IoSearchOutline /></button>
                             </div>
                         </form>
                     )}
