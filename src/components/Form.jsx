@@ -7,7 +7,6 @@ import { validate } from '../Validation';
 
 const Form = () => {
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(getCityData({ city: "lahore" }))
         dispatch(get5dayforcast({
@@ -36,12 +35,13 @@ const Form = () => {
                         <form onSubmit={props.handleSubmit}>
                             <div className='flex gap-2 relative flex-col'>
                                 <input
+                                    placeholder='Lahore'
                                     type="text"
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.name}
                                     name="city"
-                                    className='border border-white outline-none px-3 p-1 text-white bg-transparent md:w-96 w-[350px] rounded-2xl '
+                                    className='border border-white outline-none px-3 p-1 text-white bg-white/20 backdrop-blur-[4px] md:w-96 w-[350px] rounded-2xl '
                                 />
                                 {props.errors.city && <div className='text-white' id="feedback">{props.errors.city}
                                 </div>

@@ -20,7 +20,7 @@ const Forecast = () => {
                 </h4>
                 <div className="flex items-center justify-around flex-wrap">
                     {filteredForecast.map((item) => (
-                        <div key={item.length} className='flex flex-wrap py-2 md:py-0'>
+                        <div key={item.length} className='flex flex-wrap py-2 md:py-0 bg-white/20 backdrop-blur-[4px] '>
                             <div className='w-36 rounded-xl flex  flex-col items-center justify-center gap-2 text-white border border-white py-2'>
                                 <h1 className='font-semibold text-xl'>{item?.dt_txt.slice(0, 10)}</h1>
                                 <div>
