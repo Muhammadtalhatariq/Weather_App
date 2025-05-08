@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { WiHumidity } from "react-icons/wi";
 import { LuWind } from "react-icons/lu";
@@ -7,9 +7,8 @@ import { GoArrowUp } from "react-icons/go";
 import { GoArrowDown } from "react-icons/go";
 const Weather = () => {
 
-  const { citySearchData,citySearchError} = useSelector((state) => state.weather)
-console.log(citySearchError, "erorrrrrrrrrrr");
-  
+  const { citySearchData} = useSelector((state) => state.weather)
+
   return (
     <div>
       <div className='flex flex-col md:flex-row items-center text-white  p-4 justify-center md:gap-10 gap-4 w-full'>

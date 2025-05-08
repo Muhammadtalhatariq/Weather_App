@@ -6,14 +6,42 @@ import { useDispatch } from 'react-redux';
 import { validate } from '../Validation';
 
 const Form = () => {
+
     const dispatch = useDispatch()
+    const defaultCity = "Lahore";
+    const defaultCoords = { lat: 31.5497, lon: 74.3436 };
+
     useEffect(() => {
-        dispatch(getCityData({ city: "lahore" }))
-        dispatch(get5dayforcast({
-            lat: 31.5497,
-            lon: 74.3436
-        }))
+        dispatch(getCityData({ city: defaultCity }))
+        dispatch(get5dayforcast(defaultCoords))
     }, [dispatch])
+
+    const handleSubmit = (values, { setSubmitting, resetForm }) => {
+        dispatch(getCityData(values))
+            .then((res) => {
+                if (res.payload.cod === "404") {
+                    alert("City not found! Showing default city data.");
+                    dispatch(getCityData({ city: defaultCity }))
+                    dispatch(get5dayforcast(defaultCoords))
+                } else {
+                    dispatch(get5dayforcast({
+                        lat: res.payload.coord.lat,
+                        lon: res.payload.coord.lon
+                    }))
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching city data:", error);
+                alert("No data found");
+                resetForm()
+                dispatch(getCityData({ city: defaultCity }))
+                dispatch(get5dayforcast(defaultCoords))
+            })
+            .finally(() => {
+                setSubmitting(false);
+                // resetForm();
+            });
+    };
 
     return (
         <div>
@@ -21,32 +49,33 @@ const Form = () => {
                 <Formik
                     initialValues={{ city: "" }}
                     validationSchema={validate}
-                    onSubmit={(values) => {
-                        dispatch(getCityData(values)).then((res) => {
-                            dispatch(get5dayforcast({
-                                lat: res.payload.coord.lat,
-                                lon: res.payload.coord.lon
-                            }))
-                        })
-
-                    }}
+                    onSubmit={handleSubmit}
                 >
-                    {props => (
-                        <form onSubmit={props.handleSubmit}>
+                    {({ handleSubmit, handleChange, handleBlur, values, errors, isSubmitting }) => (
+                        <form onSubmit={handleSubmit}>
                             <div className='flex gap-2 relative flex-col'>
                                 <input
-                                    placeholder='Lahore'
+                                    placeholder={defaultCity}
                                     type="text"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.city}
                                     name="city"
-                                    className='border border-white outline-none px-3 p-1 text-white bg-white/20 backdrop-blur-[4px] md:w-96 w-[350px] rounded-2xl '
+                                    className='border border-white outline-none px-3 p-1 text-white bg-white/20 backdrop-blur-[4px] md:w-96 w-[350px] rounded-2xl'
+                                    disabled={isSubmitting}
                                 />
-                                {props.errors.city && <div className='text-white' id="feedback">{props.errors.city}
-                                </div>
-                                }
-                                <button className='absolute right-4 top-2 hover:scale-125 duration-1000 text-white cursor-pointer' type="submit"><IoSearchOutline /></button>
+                                {errors.city && (
+                                    <div className='text-white' id="feedback">
+                                        {errors.city}
+                                    </div>
+                                )}
+                                <button
+                                    className='absolute right-4 top-2 hover:scale-125 duration-1000 text-neutral-800 cursor-pointer'
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                >
+                                    <IoSearchOutline />
+                                </button>
                             </div>
                         </form>
                     )}

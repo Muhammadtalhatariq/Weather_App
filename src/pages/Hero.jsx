@@ -19,17 +19,11 @@ const Hero = () => {
             <Loading />
         </div>
     } else {
-        if (citySearchError) {
-            return "eroor"
-        } else {
             return <>
                 <Weather />
                 <Forecast />
             </>
         }
-    }
-
-
 }
 
 export default Hero
