@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 const Forecast = () => {
 
     const { forecastData } = useSelector((state) => state.weather)
-
     const filterForecastByFirstObjTime = (forecastData) => {
         if (!forecastData) {
             return [];
