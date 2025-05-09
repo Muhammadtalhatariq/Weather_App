@@ -6,7 +6,7 @@ import Forecast from '../components/Forecast'
 
 const Hero = () => {
 
-    const { citySearchLoading, citySearchError, forecastLoading } = useSelector((state) => state.weather)
+    const { citySearchLoading, forecastLoading } = useSelector((state) => state.weather)
     const [loadings, setLoadings] = useState(true);
     const allLoadings = [citySearchLoading, forecastLoading];
     useEffect(() => {

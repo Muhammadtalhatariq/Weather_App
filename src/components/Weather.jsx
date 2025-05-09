@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { WiHumidity } from "react-icons/wi";
 import { LuWind } from "react-icons/lu";
@@ -16,7 +16,7 @@ const Weather = () => {
           <div className=''>
             <div className='md:text-4xl text-2xl font-semibold pt-4'>
               <span className='md:text-2xl text:xl'>Weather in </span>
-              <span >{citySearchData?.name}</span> <span>- {citySearchData?.sys.country}</span>
+              <span >{citySearchData?.name}</span><span>-{citySearchData?.sys.country}</span>
             </div>
           </div>
           <div className='flex items-center '>
